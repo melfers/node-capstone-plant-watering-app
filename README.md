@@ -14,6 +14,7 @@ View Node working prototype here: [Green Thumb](https://node-capstone-plant-app.
 **All Plants Page** 
 
 As a user, I want to be able to view all the plants I have added so that I can select a plant to view.
+
 ![All Plants Page](https://github.com/melfers/node-capstone-plant-watering-app/blob/master/wireframes/all_plants_page.pdf)
 
 **Add New Plant Page**
