@@ -4,6 +4,6 @@ deploy:
   provider: heroku
   api_key:
     secure: e4TGROLJWik8WLtYQXdNxVmfLRF+IG84csxA/0uJ99QSFyVVptHymkAu006yKkonmBmReDfX6Qqm+AXoJKkUDzNkijt0iP/kwyx854piFPHdhuR4FUByaRdR317EKvEbGTTtlgvSBLXCFDjdekz8ymB/kV27gua4Ym8nUpx0YX6NfaUAqlzZlNiVprH/FuzNIlzQRwj+iJAoF1ic1QIjUMfaYhAxGmq/XiV6+vKGeftri7919baZXbzUU51DxHLXSagnf6/sh+YDDf+JSYwaiof3k5kJLiusayZtIvbLr4uWsa3+yqoTYNcRt7/0HqkVOosquCbEXc2CxRW8m8dlQoO+myGtlfOhkW47TmeuFZWYzK6RJazP03bJSlR+QWfeUd9WQEdHLtV4Lk/IajmUpSK6NOb9hFb78mRpMWM6P0Q91b0auO0SNeVhgLWn8DBue4T3bTI0ijbD8y0vnyEAb1hQhiLGsax8iUOTCs0aG/0Apf+hlsnE8uNUhtqonwnCOaPGMiFEIAyl+q4xNsJjvyhi8LY/5jyY7VAY75t630Xk/hwlKGjtsmdIXeG5TM9gAsdjpwup1Q55v2UTzMo2EMVJERSVEfuDnAVvaoTxePMkj1SxVImOlaMYIUzF0r53MYsPGj+iklYVJ4ht1aHImeWKYjWfWgbgMFZNUz38spM=
-  app: whispering-lake-79895
+  app: node-capstone-plant-app
   on:
     repo: melfers/node-capstone-plant-watering-app
