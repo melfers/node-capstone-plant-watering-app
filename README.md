@@ -15,20 +15,22 @@ View Node working prototype here: [Green Thumb](https://node-capstone-plant-app.
 
 As a user, I want to be able to view all the plants I have added so that I can select a plant to view.
 
+![All Plants Page](https://github.com/melfers/node-capstone-plant-watering-app/blob/master/wireframes/all_plants_page.pdf)
+
 **Add New Plant Page**
 
 As a user, I want to be able to add a new plant so that I can track its watering history and notes.
 
-![New Plant Page Wireframe](/wireframes/new_plant_page.pdf)
+![New Plant Page Wireframe](https://github.com/melfers/node-capstone-plant-watering-app/blob/master/wireframes/new_plant_page.pdf)
 
 **Individual Plant Page**
 
 As a user, I want to be able to view an individual plant so I can see its watering history.
 
-![Individual Plant Page](/wireframes/individual_plant_page.pdf)
+![Individual Plant Page](https://github.com/melfers/node-capstone-plant-watering-app/blob/master/wireframes/individual_plant_page.pdf)
 
 **Edit Plant Page**
 
 As a user, I want to be able to edit an individual plant so that I can add watering dates or notes.
 
-![Edit Plant Page](/wireframes/edit_plant_page.pdf)
+![Edit Plant Page](https://github.com/melfers/node-capstone-plant-watering-app/blob/master/wireframes/edit_plant_page.pdf)
