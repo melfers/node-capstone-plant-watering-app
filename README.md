@@ -7,3 +7,28 @@ View Node working prototype here: [Green Thumb](https://node-capstone-plant-app.
 
 ## Site Map: MVP 
 
+![Site Map](/wireframes/site_map.pdf)
+
+## UX & User Stories: MVP
+
+**All Plants Page** 
+
+As a user, I want to be able to view all the plants I have added so that I can select a plant to view.
+
+**Add New Plant Page**
+
+As a user, I want to be able to add a new plant so that I can track its watering history and notes.
+
+![New Plant Page Wireframe](/wireframes/new_plant_page.pdf)
+
+**Individual Plant Page**
+
+As a user, I want to be able to view an individual plant so I can see its watering history.
+
+![Individual Plant Page](/wireframes/individual_plant_page.pdf)
+
+**Edit Plant Page**
+
+As a user, I want to be able to edit an individual plant so that I can add watering dates or notes.
+
+![Edit Plant Page](/wireframes/edit_plant_page.pdf)
