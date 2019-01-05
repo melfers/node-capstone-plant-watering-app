@@ -1,1 +1,50 @@
-<p>Hello world</p>
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Green Thumb - A plant watering app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+    <header role="banner">
+        <h1>Green Thumb</h1>
+    </header>
+    <main role="main">
+        <section id="all-plants-page">
+            <h2>My Plants</h2>
+            <div id="plants-list"></div>
+            <button>Add New Plant</button>
+        </section>
+        <section id="new-plant-page">
+            <h2>Tell me about your plant:</h2>
+            <form>
+                <label for="plant-type">Plant type:</label>
+                <input name="plant-type" type="text">
+                <label for="nickname">Nickname:</label>
+                <input name="nickname" type="text">
+                <label for="watering-frequency">Watering frequency: Every</label>
+                <input name="frequency-number" type="number" min="1" max="10">
+                <select name="frequency-days">
+                    <option value="days">days</option>
+                    <option value="weeks">weeks</option>
+                    <option value="months">months</option>
+                </select> 
+                <label for="last-water">When did you last water your plant?</label>
+                <input name="last-water-date" type="date">
+                <label for="notes">Notes:</label>
+                <textarea name="notes" rows="10" cols="30">
+                <button type="submit">Save</button>
+                <button type="button">Back</button>
+            </form>
+        </section>
+        <section id="individual-plant-page">
+        </section>
+        <section id="edit-plant-page">
+        </section>
+    </main>
+    
+</body>
+</html>
