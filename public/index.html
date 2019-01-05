@@ -36,15 +36,47 @@
                 <input name="last-water-date" type="date">
                 <label for="notes">Notes:</label>
                 <textarea name="notes" rows="10" cols="30">
+                </textarea>
                 <button type="submit">Save</button>
                 <button type="button">Back</button>
             </form>
         </section>
         <section id="individual-plant-page">
+            <div id="plant-info">
+                <h2>Greta</h2>
+                <h3>Christmas Cactus</h3>
+                <p id="last-water-date">Last watered on: January 1st, 2019</p>
+                <p id="watering-frequency">Water every 2 months</p>
+                <p id="plant-notes">Notes: Loves sunlight and belly rubs.</p>
+            </div>
+            <button type="button">Back</button>
+            <button type="button">Add watering date</button>
+            <button type="button">Edit</button>
+            <button type="button">Delete</button>
         </section>
         <section id="edit-plant-page">
+            <form>
+                <label for="plant-type">Plant type:</label>
+                <input name="plant-type" type="text" placeholder="Christmas Cactus">
+                <label for="nickname">Nickname:</label>
+                <input name="nickname" type="text" placeholder="Greta">
+                <label for="watering-frequency">Watering frequency: Every</label>
+                <input name="frequency-number" type="number" min="1" max="10">
+                <select name="frequency-days">
+                    <option value="days">days</option>
+                    <option value="weeks">weeks</option>
+                    <option value="months">months</option>
+                </select> 
+                <label for="last-water">When did you last water your plant?</label>
+                <input name="last-water-date" type="date">
+                <label for="notes">Notes:</label>
+                <textarea name="notes" rows="10" cols="30">
+                    Loves sunlight and belly rubs.
+                </textarea>
+                <button type="submit">Save</button>
+                <button type="button">Back</button>
+            </form>
         </section>
     </main>
-    
 </body>
 </html>
