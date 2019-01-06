@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+    color: #4c4c4c;
+    font-family: 'News Cycle', sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+.header {
+    display: inline;
+    font-family: 'Poiret One', cursive;
+}
+
+#header-container {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 40px;
+    margin: 60px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 50px;
+}
+
+#header-logo,
+#header-menu {
+    height: 60px;
+}
+
+#header-menu {
+    float: right;
+}
+
+main {
+    text-align: center;
+}
+
+label, input {
+    display: block;
+}
+
+form {
+    margin: auto;
+    width: 70%;
+    text-align: left;
+}
+
+button,
+.form-button {
+    display: inline-block;
+    margin: auto;
+    background-color: #4c4c4c;
+    border-radius: 2px;
+    color: white;
+    font-size: 15px;
+    border: none;
+    margin: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.wtr-freq {
+    display: inline-block;
+    width: 70px;
+    margin: 5px;
+}
+
+textarea,
+input {
+    width: 100%;
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+#plant-info {
+    text-align: left;
+    display: block;
+    width: 70%;
+    margin: auto;
+    min-height: 225px;
+}
+
+#add-plant-container {
+    width: 70%;
+    height: 100%;
+    margin: auto;
+    text-align: right;
+}
+
+#add-plant-button {
+    border: none;
+    background: none;
+    position: absolute;
+    bottom: 0;
+}
+
+#add-plant-icon {
+    height: 70px;
+}
+
+.welcome {
+    margin: 60px;
+}
+
+#individual-plant-icon {
+    height: 60px;
+}
+
+#individual-plant-header {
+    margin: 0px;
+}
+
+h4 {
+    margin: 0px;
+}
+
+#watering-can {
+    height: 90px;
+}
+
+#input-water-date {
+    width: 90px;
+    margin: auto;
+    margin-bottom: 30px;
+
+}
