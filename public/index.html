@@ -15,7 +15,6 @@
         <div id="header-container">
             <img src="icons/leaf-logo.png" id="header-logo" class="header">
             <h3 class="header">gt</h3>
-            <img src="icons/menu-icon.png" id="header-menu" class="header">
         </div>
     </header>
     <main role="main">
@@ -34,7 +33,7 @@
                     <input name="password" type="text" required>
                     <div class="form-buttons">
                         <button type="button" class="form_button" id="login-back-to-landing">Back</button>
-                        <button type="submit" class="form_button">Save</button>
+                        <button type="submit" class="form_button" id="login-save">Save</button>
                     </div>
                 </form>
             </div>
@@ -51,14 +50,20 @@
                     <input name="password" type="text" required>
                     <div class="form-buttons">
                         <button type="button" class="form_button" id="signup-back-to-landing">Back</button>
-                        <button type="submit" class="form_button">Save</button>
+                        <button type="submit" class="form_button" id="signup-save">Save</button>
                     </div>
                 </form>
             </div>
         </section>
         <section id="all-plants-page">
             <h2>My Plants</h2>
-            <div id="plants-list"></div>
+            <div id="plants-list">
+                <ul>
+                    <li><img src="icons/aloe-icon.png" class="all-plants-icon">Greta</li>
+                    <li><img src="icons/aloe-icon.png" class="all-plants-icon">Henrietta</li>
+                    <li><img src="icons/aloe-icon.png" class="all-plants-icon">Pearl</li>
+                </ul>
+            </div>
             <div id="add-plant-container">
                 <button id="add-plant-button">
                     <img src="icons/add-plant-icon.png" id="add-plant-icon">
@@ -85,8 +90,8 @@
                 <textarea name="notes" rows="5" cols="30">
                 </textarea>
                 <div class="form-buttons">
-                    <button type="submit" class="form_button">Save</button>
-                    <button type="button" class="form_button">Back</button>
+                    <button type="button" class="form_button" id="new-plant-back">Back</button>
+                    <button type="submit" class="form_button" id="new-plant-save">Save</button>
                 </div>
             </form>
         </section>
@@ -101,8 +106,8 @@
             </div>
             <div id="individual-plant-buttons">
                 <button type="button">Back</button>
-                <button type="button">Add watering date</button>
-                <button type="button">Edit</button>
+                <button type="button" id="add-water-button">Add watering date</button>
+                <button type="button" id="individual-plant-edit">Edit</button>
             </div>
         </section>
         <section id="edit-plant-page">
@@ -125,9 +130,9 @@
                 <textarea name="notes" rows="5" cols="30">Loves sunlight and belly rubs.
                 </textarea>
                 <div class="form-buttons">
-                    <button type="submit" class="form_button">Save</button>
                     <button type="button" class="form_button">Back</button>
-                    <button type="button">Delete</button>
+                    <button type="submit" class="form_button" id="edit-plant-save">Save</button>
+                    <button type="button" id="delete-plant">Delete</button>
                 </div>
             </form>
         </section>
@@ -138,7 +143,7 @@
                 <input name="last-water-date" type="date" id="input-water-date">
                 <div class="form-buttons">
                     <button type="button" class="form_button">Back</button>
-                    <button type="submit" class="form_button">Save</button>
+                    <button type="submit" class="form_button" id="new-water-save">Save</button>
                 </div>
             </form>
         </section>
