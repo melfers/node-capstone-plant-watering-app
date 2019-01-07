@@ -1,5 +1,18 @@
 'use strict';
 
+//Show landing page
+function showLandingPage() {
+    $('#welcome-container').show();
+    $('#login-form-container').hide();
+    $('#signup-form-container').hide();
+    $('#all-plants-page').hide();
+    $('#new-plant-page').hide();
+    $('#individual-plant-page').hide();
+    $('#edit-plant-page').hide();
+    $('#water-plant-page').hide();
+    console.log('showLandingPage ran');
+}
+
 //Show login page
 function showLoginPage() {
     $('#welcome-container').hide();
@@ -91,11 +104,22 @@ function showWaterPlantPage() {
     console.log('showWaterPlantPage ran');
 }
 
+
+//Handle header logo clicks
+$('#header-logo').click(event => {
+    event.preventDefault();
+    showAllPlantsPage();
+});
+
+//----------Water Plant Page----------
+
 //Handle save new watering button
 $('#new-water-save').click(event => {
     event.preventDefault();
     showIndividualPlantPage();
 });
+
+//----------Edit Plant Page----------
 
 //Handle delete plant button
 $('#delete-plant').click(event => {
@@ -109,6 +133,14 @@ $('#edit-plant-save').click(event => {
     showIndividualPlantPage();
 });
 
+//Back to individual plant page
+$('.back-indivPlant').click(event => {
+    event.preventDefault();
+    showIndividualPlantPage();
+});
+
+//----------Individual Plant Page----------
+
 //Handle add watering date button
 $('#add-water-button').click(event => {
     event.preventDefault();
@@ -121,16 +153,26 @@ $('#individual-plant-edit').click(event => {
     showEditPlantPage();
 });
 
-//Handle individual plant clicks
-$('ul').on('click', 'li', event => {
-    event.preventDefault();
-    showIndividualPlantPage();
-});
+//----------New Plant Page----------
 
 //Save new plant --> all plants page
 $('#new-plant-save').click(event => {
     event.preventDefault();
     showAllPlantsPage();
+});
+
+//Handle back button
+$('.back-allPlants').click(event => {
+    event.preventDefault();
+    showAllPlantsPage();
+});
+
+//----------All Plants Page----------
+
+//Handle individual plant clicks
+$('ul').on('click', 'li', event => {
+    event.preventDefault();
+    showIndividualPlantPage();
 });
 
 //Handle add new plant button
@@ -139,13 +181,21 @@ $('#add-plant-button').click(event => {
     showNewPlantPage();
 });
 
-//Handle signup -- all plants page
+//----------Landing Page----------
+
+//Handle back button
+$('.landing-back').click(event => {
+    event.preventDefault();
+    showLandingPage();
+});
+
+//Handle signup 
 $('#signup-save').click(event => {
     event.preventDefault();
     showAllPlantsPage();
 });
 
-//Handle login --> all plants page
+//Handle login 
 $('#login-save').click(event => {
     event.preventDefault();
     showAllPlantsPage();
@@ -163,6 +213,7 @@ $('#signup-button').click(event => {
     showSignupPage();
 });
 
+//--------Doc Ready-------
 
 //Document ready function
 $(document).ready(function() {
