@@ -1,5 +1,6 @@
 'use strict';
 
+//----------Navigational Hide/Show functions----------
 //Show landing page
 function showLandingPage() {
     $('#welcome-container').show();
@@ -104,6 +105,25 @@ function showWaterPlantPage() {
     console.log('showWaterPlantPage ran');
 }
 
+//----------API Request Functions----------
+
+//POST Login Form
+function postLoginForm(url, username, password) {
+    const loginData = {
+        username: username,
+        password: password
+    }
+
+    return fetch(url {
+        method: 'POST',
+        body: loginData
+    })
+    .then(response => response.json())
+
+}
+
+//POST New User Signup
+function postSignupForm(url)
 
 //Handle header logo clicks
 $('#header-logo').click(event => {
@@ -198,7 +218,21 @@ $('#signup-save').click(event => {
 //Handle login 
 $('#login-save').click(event => {
     event.preventDefault();
-    showAllPlantsPage();
+
+    const username = $('#usernameInput').val();
+    const password = $('#userPwInput').val();
+
+    if (username == "") {
+        alert('Please enter your user name');
+    } else if (password =="") {
+        alert('Please enter your password');
+    }
+    else {
+        postLoginForm('/users/login', username, password)
+            .then(data => console.log(data))
+            .then(showAllPlantsPage());
+            .catch(error => console.error(error));
+    }
 });
 
 //Handle Log In click 
