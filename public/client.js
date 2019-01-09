@@ -114,7 +114,7 @@ function postLoginForm(url, username, password) {
         password: password
     }
 
-    return fetch(url {
+    return fetch(url, {
         method: 'POST',
         body: loginData
     })
@@ -123,7 +123,7 @@ function postLoginForm(url, username, password) {
 }
 
 //POST New User Signup
-function postSignupForm(url)
+
 
 //Handle header logo clicks
 $('#header-logo').click(event => {
@@ -230,7 +230,8 @@ $('#login-save').click(event => {
     else {
         postLoginForm('/users/login', username, password)
             .then(data => console.log(data))
-            .then(showAllPlantsPage());
+            .then(console.log(data))
+            .then(showAllPlantsPage())
             .catch(error => console.error(error));
     }
 });
