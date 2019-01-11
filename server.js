@@ -1,8 +1,10 @@
 const User = require('./models/users');
+const Plant = require('./models/plants');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const app = express();
+const bcrypt = require('bcryptjs');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -64,9 +66,10 @@ if (require.main === module) {
 
 //User Login
 app.post('/users/login', (req, res) => {
+  console.log(req.body.username, req.body.password);
   User 
     .findOne({
-      email: req.body.email
+      username: req.body.username
     }, function(err, items) {
       if (err) {
         return res.status(500).json({
@@ -97,6 +100,90 @@ app.post('/users/login', (req, res) => {
 });
 
 //Create new user
+app.post('/users/signup', (req, res) => {
+  let firstName = req.body.firstName;
+  let username = req.body.username;
+  let password = req.body.password;
+
+  username = username.trim();
+  password = password.trim();
+
+  //Create encryption key
+  bcrypt.genSalt(10, (err, salt) => {
+      if (err) {
+          return res.status(500).json({
+              message: 'Encryption key creation failed'
+          });
+      }
+      //encrypt password using key 
+      bcrypt.hash(password, salt, (err, hash) => {
+          if (err) {
+              return res.status(500).json({
+                  message: 'Password encryption failed'
+              });
+          }
+
+          User.create({
+              firstName,
+              username,
+              password: hash
+          }, (err, item) => {
+              if (err) {
+                  return res.status(500).json({
+                      message: 'Create new user failed'
+                  });
+              }
+              if (item) {
+                  return res.status(200).json(item);
+              }
+          });
+      });
+  });
+
+});
+
+//Create new plant
+app.post('/users/plants/create', (req, res) => {
+  let username = req.body.username;
+  let plantType = req.body.plantType;
+  let nickname = req.body.nickname;
+  let waterNumber = req.body.waterNumber;
+  let waterFrequency = req.body.waterFrequency;
+  let waterHistory = req.body.waterHistory;
+  let notes = req.body.notes;
+
+  nickname = nickname.trim();
+  console.log(
+    req.body.username,
+    req.body.plantType, 
+    req.body.nickname, 
+    req.body.waterNumber, 
+    req.body.waterFrequency, 
+    req.body.waterHistory,
+    req.body.notes
+    );
+
+  Plant
+    .create({
+      username,
+      plantType,
+      nickname,
+      waterNumber,
+      waterFrequency,
+      waterHistory,
+      notes
+    }, (err, item) => {
+      if(err) {
+        return res.status(500).json({
+          message: 'Internal server error'
+        });
+      }
+      if (item) {
+        console.log(`Added a ${plantType} named ${nickname} to ${username}'s account`);
+        return res.json(item);
+      }
+    });
+});
 
 
 module.exports = { app, runServer, closeServer };

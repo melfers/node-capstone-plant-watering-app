@@ -15,6 +15,7 @@
         <div id="header-container">
             <img src="icons/leaf-logo.png" id="header-logo" class="header">
             <h3 class="header">gt</h3>
+            <input type="hidden" id="logged-in-username" value="" />
         </div>
     </header>
     <main role="main">
@@ -28,9 +29,9 @@
                 <h2 class="welcome">Please enter your login info:</h2>
                 <form id="login-form">
                     <label for="username">username:</label>
-                    <input name="username" type="text" id="usernameInput" required>
+                    <input name="username" type="text" id="loginUsernameInput" value="demoUser" required>
                     <label for="password">password:</label>
-                    <input name="password" type="text" id="userPwInput" required>
+                    <input name="password" type="password" id="loginUserPwInput" value="demoPass" required>
                     <div class="form-buttons">
                         <button type="button" class="form_button landing-back">Back</button>
                         <button type="submit" class="form_button" id="login-save">Save</button>
@@ -41,13 +42,13 @@
                 <h2 class="welcome">Create your account:</h2>
                 <form id="signup-form">
                     <label for="first-name">First name:</label>
-                    <input name="first-name" type="text" required>
+                    <input name="first-name" type="text" id="signupFirstNameInput" value="Fred" required>
                     <label for="username">Username:</label>
-                    <input name="username" type="text" required>
+                    <input name="username" type="text" id="signupUsernameInput" value="demoUser" required>
                     <label for="password">Password:</label>
-                    <input name="password" type="text" required>
+                    <input name="password" type="password" id="signupPasswordInput" value="demoPass" required>
                     <label for="password">Re-enter Password:</label>
-                    <input name="password" type="text" required>
+                    <input name="password" type="password" id="signupVerifyPasswordInput" value="demoPass" required>
                     <div class="form-buttons">
                         <button type="button" class="form_button landing-back">Back</button>
                         <button type="submit" class="form_button" id="signup-save">Save</button>
@@ -74,21 +75,20 @@
             <h2>Tell me about your plant:</h2>
             <form>
                 <label for="plant-type">Plant type:</label>
-                <input name="plant-type" type="text" required>
+                <input name="plant-type" type="text" id="newPlantType" value="Monstera Deliciosa" required>
                 <label for="nickname">Nickname:</label>
-                <input name="nickname" type="text">
+                <input name="nickname" type="text" id="newPlantNickname" value="Bertha">
                 <label for="watering-frequency">Watering frequency:</label>
-                <span>every  </span><input name="frequency-number" type="number" min="1" max="10" class="wtr-freq">
-                <select name="frequency-days" class="wtr-freq">
+                <span>every  </span><input name="frequency-number" type="number" min="1" max="10" class="wtr-freq" id="newPlantWaterNumber">
+                <select name="frequency-days" class="wtr-freq" id="newPlantWaterFrequency">
                     <option value="days">days</option>
                     <option value="weeks">weeks</option>
                     <option value="months">months</option>
                 </select> 
                 <label for="last-water">When did you last water your plant?</label>
-                <input name="last-water-date" type="date">
+                <input name="last-water-date" type="date" id="newPlantWaterHistory">
                 <label for="notes">Notes:</label>
-                <textarea name="notes" rows="5" cols="30">
-                </textarea>
+                <textarea name="notes" rows="5" cols="30" id="newPlantNotes" value="hi there"></textarea>
                 <div class="form-buttons">
                     <button type="button" class="form_button back-allPlants">Back</button>
                     <button type="submit" class="form_button" id="new-plant-save">Save</button>

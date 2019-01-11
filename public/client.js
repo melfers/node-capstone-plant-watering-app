@@ -108,7 +108,7 @@ function showWaterPlantPage() {
 //----------API Request Functions----------
 
 //POST Login Form
-function postLoginForm(url, username, password) {
+/*function postLoginForm(url, username, password) {
     const loginData = {
         username: username,
         password: password
@@ -116,11 +116,12 @@ function postLoginForm(url, username, password) {
 
     return fetch(url, {
         method: 'POST',
-        body: loginData
+        data: loginData
     })
     .then(response => response.json())
+    .catch(err => console.log(err))
 
-}
+}*/
 
 //POST New User Signup
 
@@ -178,7 +179,49 @@ $('#individual-plant-edit').click(event => {
 //Save new plant --> all plants page
 $('#new-plant-save').click(event => {
     event.preventDefault();
-    showAllPlantsPage();
+    const username = $('#logged-in-username').val();
+    const plantType = $('#newPlantType').val();
+    const nickname = $('#newPlantNickname').val();
+    const waterNumber = $('#newPlantWaterNumber').val();
+    const waterFrequency = $('#newPlantWaterFrequency').val();
+    const waterHistory = $('#newPlantWaterHistory').val();
+    const notes = $('#newPlantNotes').val();
+    console.log(plantType, nickname, waterNumber, waterFrequency, waterHistory, notes);
+
+    if(plantType == "") {
+        alert('Sorry, you have to enter a plant type')
+    }
+    else {
+        const newPlantData = {
+            username,
+            plantType,
+            nickname,
+            waterNumber,
+            waterFrequency,
+            waterHistory,
+            notes
+        }
+        console.log(newPlantData);
+
+        return fetch('/users/plants/create', {
+            method: 'POST',
+            body: JSON.stringify(newPlantData),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+              })
+        })
+        .then(response => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.statusText);
+          })
+          .then(responseJson => showAllPlantsPage(responseJson))
+          .catch(err => {
+          /*$('#js-error-message').text(`Something went wrong: ${err.message}`);*/
+            console.log(err.message);
+          });
+    }
 });
 
 //Handle back button
@@ -212,15 +255,65 @@ $('.landing-back').click(event => {
 //Handle signup 
 $('#signup-save').click(event => {
     event.preventDefault();
-    showAllPlantsPage();
+
+    const firstName = $('#signupFirstNameInput').val();
+    const username = $('#signupUsernameInput').val();
+    const password = $('#signupPasswordInput').val();
+    const verifyPassword = $('#signupVerifyPasswordInput').val();
+    
+    console.log(firstName, username, password, verifyPassword);
+
+    if (username == "") {
+        alert('Please enter your user name');
+    } else if (password =="") {
+        alert('Please enter your password');
+    } else if (password != verifyPassword) {
+        alert('Passwords do not match');
+    } else if (firstName == "") {
+        alert('Please enter your first name');
+    }
+    else {
+        const signupData = {
+            firstName,
+            username,
+            password
+        }
+        
+        console.log(signupData);
+
+        return fetch('/users/signup', {
+            method: 'POST',
+            body: JSON.stringify(signupData),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+              })
+        })
+        .then(response => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.statusText);
+          })
+        .then(responseJson => {
+            $('#logged-in-username').val(username);
+            showAllPlantsPage(responseJson);
+        })
+        .catch(err => {
+          /*$('#js-error-message').text(`Something went wrong: ${err.message}`);*/
+            console.log(err.message);
+        });
+    }
 });
+
 
 //Handle login 
 $('#login-save').click(event => {
     event.preventDefault();
 
-    const username = $('#usernameInput').val();
-    const password = $('#userPwInput').val();
+    const username = $('#loginUsernameInput').val();
+    console.log(username);
+    const password = $('#loginUserPwInput').val();
+    console.log(password);
 
     if (username == "") {
         alert('Please enter your user name');
@@ -228,11 +321,33 @@ $('#login-save').click(event => {
         alert('Please enter your password');
     }
     else {
-        postLoginForm('/users/login', username, password)
-            .then(data => console.log(data))
-            .then(console.log(data))
-            .then(showAllPlantsPage())
-            .catch(error => console.error(error));
+        const loginData = {
+            username: username,
+            password: password
+        }
+    
+        return fetch('/users/login', {
+            method: 'POST',
+            body: JSON.stringify(loginData),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+              })
+        })
+        .then(response => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.statusText);
+          })
+        .then(responseJson => {
+            $('#logged-in-username').val(username);
+            console.log($('#logged-in-username').val(username));
+            showAllPlantsPage(responseJson);
+          })
+          .catch(err => {
+          /*$('#js-error-message').text(`Something went wrong: ${err.message}`);*/
+            console.log(err.message);
+          });
     }
 });
 
