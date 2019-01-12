@@ -40,6 +40,15 @@ function showSignupPage() {
     console.log('showSignupPage ran');
 }
 
+//Populate all plants page
+function populateAllPlantsPage(plantList) {
+    let htmlContent = '';
+    $.each(plantList, (i, item) => {
+        htmlContent += `<li><img src="icons/aloe-icon.png" class="all-plants-icon">${item.nickname}</li>`;
+    });
+    $('#display-all-plants').html(htmlContent);
+}
+
 //Show all plants page
 function showAllPlantsPage() {
     $('#welcome-container').hide();
@@ -50,6 +59,16 @@ function showAllPlantsPage() {
     $('#individual-plant-page').hide();
     $('#edit-plant-page').hide();
     $('#water-plant-page').hide();
+
+    const username = $('#logged-in-username').val();
+    console.log(username);
+    fetch(`/all-plants/${username}`)
+    .then(response => response.json())
+    .then(data => {
+        populateAllPlantsPage(data);
+    })
+    .catch(error => console.error(error))
+
     console.log('showAllPlantsPage ran');
 }
 
@@ -105,25 +124,7 @@ function showWaterPlantPage() {
     console.log('showWaterPlantPage ran');
 }
 
-//----------API Request Functions----------
 
-//POST Login Form
-/*function postLoginForm(url, username, password) {
-    const loginData = {
-        username: username,
-        password: password
-    }
-
-    return fetch(url, {
-        method: 'POST',
-        data: loginData
-    })
-    .then(response => response.json())
-    .catch(err => console.log(err))
-
-}*/
-
-//POST New User Signup
 
 
 //Handle header logo clicks

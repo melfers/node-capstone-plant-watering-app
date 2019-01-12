@@ -185,5 +185,24 @@ app.post('/users/plants/create', (req, res) => {
     });
 });
 
+//Show all plants for a user
+app.get('/all-plants/:username', (req, res) => {
+  console.log(req.params.username);
+  Plant
+    .find({username: req.params.username})
+    .then(plants => {
+        console.log(plants);
+        let plantOutput = [];
+        plants.map(plant => {
+          plantOutput.push(plant);
+        });
+        res.json(plantOutput);
+      })
+    .catch(err => {
+      console.err(err);
+      res.status(500).json({ error: 'Something went wrong'});
+    });
+});
+
 
 module.exports = { app, runServer, closeServer };
