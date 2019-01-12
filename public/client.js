@@ -85,6 +85,15 @@ function showNewPlantPage() {
     console.log('showNewPlantPage ran');
 }
 
+//Populate individual plant page
+function populateIndividualPlantPage(plantData) {
+    $('#individual-plant-nickname').html(plantData.nickname);
+    $('#individual-plant-type').html(plantData.plantType);
+    $('#last-water-date').html(`Last watered on: ${plantData.waterHistory}`);
+    $('#watering-frequency').html(`Water every ${plantData.waterNumber} ${plantData.waterFrequency}`);
+    $('#plant-notes').html(`Notes: ${plantData.notes}`);
+}
+
 //Show individual plant page
 function showIndividualPlantPage() {
     $('#welcome-container').hide();
@@ -95,6 +104,17 @@ function showIndividualPlantPage() {
     $('#individual-plant-page').show();
     $('#edit-plant-page').hide();
     $('#water-plant-page').hide();
+
+    const username = $('#logged-in-username').val();
+    const selectedPlant = $('#selected-plant').val();
+
+    fetch(`/individual-plant/${username}/${selectedPlant}`)
+    .then(response => response.json())
+    .then(data => {
+        populateIndividualPlantPage(data);
+    })
+    .catch(error => console.error(error))
+
     console.log('showIndividualPlantPage ran');
 }
 
@@ -177,6 +197,27 @@ $('#individual-plant-edit').click(event => {
 
 //----------New Plant Page----------
 
+//Verify no plant exists with nickname
+function verifyNickname(inputNickname) {
+    let username = $('#logged-in-username').val();
+    fetch(`/verifyNickname/${username}/${inputNickname}`)
+    .then(response => {
+        console.log(response.json());
+        if (response.result.length > 0) {
+            alert('Sorry, that nickname is already being used. Please try a new one!')
+            $('#newPlantNickname').val('');
+        }
+    })
+    .catch(error => console.error(error))
+    console.log('verifyNickname ran');
+}
+
+$(document).on('blur', '#newPlantNickname', event => {
+    event.preventDefault();
+    let inputNickname = $('#newPlantNickname').val();
+    verifyNickname(inputNickname);
+})
+
 //Save new plant --> all plants page
 $('#new-plant-save').click(event => {
     event.preventDefault();
@@ -191,6 +232,8 @@ $('#new-plant-save').click(event => {
 
     if(plantType == "") {
         alert('Sorry, you have to enter a plant type')
+    } else if (nickname == "") {
+        alert('Sorry, you have to enter a nickname')
     }
     else {
         const newPlantData = {
@@ -236,6 +279,9 @@ $('.back-allPlants').click(event => {
 //Handle individual plant clicks
 $('ul').on('click', 'li', event => {
     event.preventDefault();
+    let selectedPlant = $(event.target).text();
+    console.log(selectedPlant);
+    $('#selected-plant').val(selectedPlant);
     showIndividualPlantPage();
 });
 

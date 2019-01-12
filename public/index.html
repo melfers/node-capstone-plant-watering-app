@@ -16,6 +16,7 @@
             <img src="icons/leaf-logo.png" id="header-logo" class="header">
             <h3 class="header">gt</h3>
             <input type="hidden" id="logged-in-username" value="" />
+            <input type="hidden" id="selected-plant" value="" />
         </div>
     </header>
     <main role="main">
@@ -60,7 +61,7 @@
             <h2>My Plants</h2>
             <div id="plants-list">
                 <ul id="display-all-plants">
-                    
+                    <li><img src="icons/aloe-icon.png" class="all-plants-icon">Greta</li>
                 </ul>
             </div>
             <div id="add-plant-container">
@@ -75,7 +76,7 @@
                 <label for="plant-type">Plant type:</label>
                 <input name="plant-type" type="text" id="newPlantType" value="Monstera Deliciosa" required>
                 <label for="nickname">Nickname:</label>
-                <input name="nickname" type="text" id="newPlantNickname" value="Bertha">
+                <input name="nickname" type="text" id="newPlantNickname" value="Bertha" required>
                 <label for="watering-frequency">Watering frequency:</label>
                 <span>every  </span><input name="frequency-number" type="number" min="1" max="10" class="wtr-freq" id="newPlantWaterNumber">
                 <select name="frequency-days" class="wtr-freq" id="newPlantWaterFrequency">
@@ -95,8 +96,8 @@
         </section>
         <section id="individual-plant-page">
             <img src="icons/paddle-cactus-icon.png" id="individual-plant-icon">
-            <h2 id="individual-plant-header">Greta</h2>
-            <h4>Christmas Cactus</h4>
+            <h2 id="individual-plant-nickname">Greta</h2>
+            <h4 id="individual-plant-type">Christmas Cactus</h4>
             <div id="plant-info">
                 <p id="last-water-date">Last watered on: January 1st, 2019</p>
                 <p id="watering-frequency">Water every 2 months</p>

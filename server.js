@@ -142,6 +142,24 @@ app.post('/users/signup', (req, res) => {
 
 });
 
+//Verify no plant exists with input nickname
+app.get('/verifyNickname/:username/:inputNickname', (req, res) => {
+  console.log(req.params.inputNickname);
+  Plant
+    .find({
+      username: req.params.username,
+      nickname: req.params.inputNickname
+    })
+    .then(result => {
+        console.log(result.length);
+        res.json({result});
+      })
+    .catch(err => {
+      console.err(err);
+      res.status(500).json({ error: 'Something went wrong'});
+    });
+})
+
 //Create new plant
 app.post('/users/plants/create', (req, res) => {
   let username = req.body.username;
@@ -198,6 +216,24 @@ app.get('/all-plants/:username', (req, res) => {
         });
         res.json(plantOutput);
       })
+    .catch(err => {
+      console.err(err);
+      res.status(500).json({ error: 'Something went wrong'});
+    });
+});
+
+//View individual plant info
+app.get('/individual-plant/:username/:selectedPlant', (req, res) => {
+  console.log(req.params.selectedPlant);
+  Plant
+    .findOne({
+      username: req.params.username,
+      nickname: req.params.selectedPlant
+    })
+    .then(plant => {
+      console.log(plant);
+      res.json(plant);
+    })
     .catch(err => {
       console.err(err);
       res.status(500).json({ error: 'Something went wrong'});
