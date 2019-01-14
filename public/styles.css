@@ -46,24 +46,24 @@ main {
 
 label, input {
     display: block;
+    margin: 5px;
 }
 
 form {
     margin: auto;
-    width: 70%;
+    width: 25%;
     text-align: left;
 }
 
 button,
 .form-button {
     display: inline-block;
-    margin: auto;
+    margin: 10px;
     background-color: #4c4c4c;
     border-radius: 2px;
     color: white;
     font-size: 15px;
     border: none;
-    margin: 5px;
     padding-left: 20px;
     padding-right: 20px;
 }
@@ -108,9 +108,9 @@ input {
 
 ul {
     text-align: left;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin: auto;
     padding: 0;
+    width: 85%;
 }
 
 li {
@@ -155,4 +155,30 @@ h4 {
     margin: auto;
     margin-bottom: 30px;
 
+}
+
+.plantButton {
+    width: 150px;
+    background-color: transparent;
+    color: #4c4c4c;
+    padding: 0px;
+    font-size: 20px;
+}
+
+.plantButtonIcon {
+    width: 90px;
+    display: inline-block;
+}
+
+form.individualPlantForm {
+    margin: 0px;
+}
+
+p.plantButtonNickname {
+    margin: 5px;
+}
+
+p.plantButtonType {
+    font-size: 14px;
+    margin: 5px;
 }

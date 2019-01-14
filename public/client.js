@@ -44,7 +44,16 @@ function showSignupPage() {
 function populateAllPlantsPage(plantList) {
     let htmlContent = '';
     $.each(plantList, (i, item) => {
-        htmlContent += `<li><img src="icons/aloe-icon.png" class="all-plants-icon">${item.nickname}</li>`;
+        htmlContent += '<li>';
+        htmlContent += '<form class="individualPlantForm">';
+        htmlContent += `<input type="hidden" class="individualPlantId" value="${item._id}" />`;
+        htmlContent += '<button type="submit" class="plantButton">';
+        htmlContent += '<img class="plantButtonIcon" src="icons/aloe-icon.png">';
+        htmlContent += `<p class="plantButtonNickname">${item.nickname}</p>`;
+        htmlContent += `<p class="plantButtonType">${item.plantType}</p>`;
+        htmlContent += '</button>';
+        htmlContent += '</form>';
+        htmlContent += '</li>';
     });
     $('#display-all-plants').html(htmlContent);
 }
@@ -118,6 +127,16 @@ function showIndividualPlantPage() {
     console.log('showIndividualPlantPage ran');
 }
 
+//Populate edit plant page
+function populateEditIndividualPlantPage(plantData) {
+    $('#edit-individual-plant-type').attr('placeholder', `${plantData.plantType}`);
+    $('#edit-individual-plant-nickname').attr('placeholder', `${plantData.nickname}`);
+    $('#edit-water-number').attr('placeholder', `${plantData.waterNumber}`);
+    $('#edit-watering-frequency').attr('placeholder', `${plantData.waterFrequency}`);
+    $('#edit-last-water-date').attr('placeholder', `${plantData.waterHistory}`);
+    $('#edit-plant-notes').attr('placeholder', `${plantData.notes}`);
+}
+
 //Show edit plant page
 function showEditPlantPage() {
     $('#welcome-container').hide();
@@ -128,6 +147,17 @@ function showEditPlantPage() {
     $('#individual-plant-page').hide();
     $('#edit-plant-page').show();
     $('#water-plant-page').hide();
+
+    const username = $('#logged-in-username').val();
+    const selectedPlant = $('#selected-plant').val();
+
+    fetch(`/edit-individual-plant/${username}/${selectedPlant}`)
+    .then(response => response.json())
+    .then(data => {
+        populateEditIndividualPlantPage(data);
+    })
+    .catch(error => console.error(error))
+
     console.log('showEditPlantPage ran');
 }
 
@@ -158,7 +188,41 @@ $('#header-logo').click(event => {
 //Handle save new watering button
 $('#new-water-save').click(event => {
     event.preventDefault();
-    showIndividualPlantPage();
+
+    const username = $('#logged-in-username').val();
+    const selectedPlant = $('#selected-plant').val();
+    const newWaterDate = $('#input-water-date').val();
+    console.log(newWaterDate, selectedPlant);
+
+    if(newWaterDate == "") {
+        alert('Please enter a date');
+    }
+    else {
+        let newWaterDateData = {
+            waterHistory: newWaterDate
+        }
+        console.log(newWaterDateData);
+
+        return fetch(`/add-water-date/${username}/${selectedPlant}`, {
+            method: 'POST',
+            body: JSON.stringify(newWaterDateData),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(response.statusText);
+        })
+        .then(responseJson => {
+            showIndividualPlantPage(responseJson);
+        })
+        .catch(err => {
+            console.log(err.message);
+        });
+    }
 });
 
 //----------Edit Plant Page----------
@@ -166,13 +230,75 @@ $('#new-water-save').click(event => {
 //Handle delete plant button
 $('#delete-plant').click(event => {
     event.preventDefault();
-    showAllPlantsPage();
+
+    const username = $('#logged-in-username').val();
+    const selectedPlant = $('#selected-plant').val();
+
+    return fetch(`/delete-plant/${username}/${selectedPlant}`, {
+        method: 'DELETE',
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        showAllPlantsPage(username);
+        $('#selected-plant').val() = '';
+    })
+    .catch(err => {
+        console.log(err.message);
+    });
 });
 
 //Handle save edits button
 $('#edit-plant-save').click(event => {
     event.preventDefault();
-    showIndividualPlantPage();
+    const username = $('#logged-in-username').val();
+    const selectedPlant = $('#selected-plant').val(); 
+    let editedPlantType = $('#edit-individual-plant-type').val();
+    let editedNickname = $('#edit-individual-plant-nickname').val();
+    let editedWaterNumber = $('#edit-water-number').val();
+    let editedWaterFrequency = $('#edit-watering-frequency').val();
+    let editedWaterDate = $('#edit-last-water-date').val();
+    let editedNotes = $('#edit-plant-notes').val();
+    console.log(username, selectedPlant, editedPlantType, editedNickname, editedWaterNumber, editedWaterFrequency, editedWaterDate, editedNotes);
+
+    if(editedPlantType == "") {
+        alert('Sorry, you have to enter a plant type')
+    } else if (editedNickname == "") {
+        alert('Sorry, you have to enter a nickname')
+    }
+    else {
+        const editedPlantData = {
+            username,
+            selectedPlant,
+            editedPlantType,
+            editedNickname,
+            editedWaterNumber,
+            editedWaterFrequency,
+            editedWaterDate,
+            editedNotes
+        }
+        console.log(editedPlantData);
+
+        return fetch(`/save-edit-individual-plant/${username}/${selectedPlant}`, {
+            method: 'PUT',
+            body: JSON.stringify(editedPlantData),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error(response.statusText);
+          })
+          .then(responseJson => showIndividualPlantPage(responseJson))
+          .catch(err => {
+            console.log(err.message);
+          });
+    }
 });
 
 //Back to individual plant page
@@ -201,10 +327,11 @@ $('#individual-plant-edit').click(event => {
 function verifyNickname(inputNickname) {
     let username = $('#logged-in-username').val();
     fetch(`/verifyNickname/${username}/${inputNickname}`)
-    .then(response => {
-        console.log(response.json());
-        if (response.result.length > 0) {
-            alert('Sorry, that nickname is already being used. Please try a new one!')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data.result.length > 0) {
+            alert('Sorry, that nickname is already being used. Please try a new one!');
             $('#newPlantNickname').val('');
         }
     })
@@ -277,9 +404,10 @@ $('.back-allPlants').click(event => {
 //----------All Plants Page----------
 
 //Handle individual plant clicks
-$('ul').on('click', 'li', event => {
+$(document).on('click', '.individualPlantForm', event => {
     event.preventDefault();
-    let selectedPlant = $(event.target).text();
+    debugger;
+    let selectedPlant = $(this).parent().find('.individualPlantId').val();
     console.log(selectedPlant);
     $('#selected-plant').val(selectedPlant);
     showIndividualPlantPage();

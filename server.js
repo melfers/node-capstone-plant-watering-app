@@ -228,7 +228,7 @@ app.get('/individual-plant/:username/:selectedPlant', (req, res) => {
   Plant
     .findOne({
       username: req.params.username,
-      nickname: req.params.selectedPlant
+      _id: req.params.selectedPlant
     })
     .then(plant => {
       console.log(plant);
@@ -239,6 +239,91 @@ app.get('/individual-plant/:username/:selectedPlant', (req, res) => {
       res.status(500).json({ error: 'Something went wrong'});
     });
 });
+
+//Add new water date for individual plant
+app.post('/add-water-date/:username/:selectedPlant', (req, res) => {
+  console.log(req.params.selectedPlant, req.body.waterHistory);
+  const newWaterDate = req.body.waterHistory;
+
+  Plant
+    .findOne({
+      username: req.params.username,
+      nickname: req.params.selectedPlant
+    })
+    .then(plant => {
+      plant.waterHistory.push({newWaterDate});
+    });
+});
+
+//Delete an individual plant
+app.delete('/delete-plant/:username/:selectedPlant', (req, res) => {
+  console.log(req.params.selectedPlant);
+
+  Plant
+    .findOneAndDelete({
+      username: req.params.username,
+      nickname: req.params.selectedPlant
+    })
+    .then(() => {
+      console.log(`${req.params.selectedPlant} was deleted`);
+      res.status(204).json({ message: `${req.params.selectedPlant} was deleted`});
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        message: 'Internal server error deleting entry'
+      })
+    });
+});
+
+//Populate edit individual plant
+app.get('/edit-individual-plant/:username/:selectedPlant', (req, res) => {
+  console.log(req.params.selectedPlant);
+  Plant
+    .findOne({
+      username: req.params.username,
+      nickname: req.params.selectedPlant
+    })
+    .then(plant => {
+      console.log(plant);
+      res.json(plant);
+    })
+    .catch(err => {
+      console.err(err);
+      res.status(500).json({ error: 'Something went wrong'});
+    });
+})
+
+//Save edits to individual plant
+app.put('/save-edit-individual-plant/:username/:selectedPlant', (req, res) => {
+  console.log(req.params.username, req.params.selectedPlant);
+  Plant
+    .update({
+      username: req.params.username,
+      nickname: req.params.selectedPlant
+    }, { $set: { 
+        plantType: req.body.editedPlantType,
+        nickname: req.body.editedNickname,
+        waterNumber: req.body.editedWaterNumber,
+        waterFrequency: req.body.editedWaterFrequency,
+        waterDate: req.body.editedWaterDate,
+        notes: req.body.editedNotes
+      }
+    })
+    .then(updatedPlant => {
+      res.status(200).json({
+        username: updatedPlant.username,
+        plantType: updatedPlant.plantType,
+        nickname: updatedPlant.nickname, 
+        waterNumber: updatedPlant.waterNumber,
+        waterFrequency: updatedPlant.waterFrequency,
+        waterDate: updatedPlant.waterDate,
+        notes: updatedPlant.notes
+      });
+    })
+    .catch(err => res.status(500).json({ message: err}));
+})
+
 
 
 module.exports = { app, runServer, closeServer };
