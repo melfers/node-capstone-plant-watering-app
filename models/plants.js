@@ -8,7 +8,9 @@ const plantSchema = mongoose.Schema({
     nickname: String,
     waterNumber: Number,
     waterFrequency: String,
-    waterHistory: [Date],
+    waterHistory: {
+        type: Date
+    },
     notes: String
 });
 
