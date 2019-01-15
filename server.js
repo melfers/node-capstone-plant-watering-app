@@ -1,10 +1,12 @@
 const User = require('./models/users');
 const Plant = require('./models/plants');
+const History = require('./models/waterHistory');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const app = express();
 const bcrypt = require('bcryptjs');
+const moment = require('moment');
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -241,19 +243,30 @@ app.get('/individual-plant/:username/:selectedPlant', (req, res) => {
 });
 
 //Add new water date for individual plant
-app.post('/add-water-date/:username/:selectedPlant', (req, res) => {
-  console.log(req.params.selectedPlant, req.body.waterHistory);
-  const newWaterDate = req.body.waterHistory;
+app.put('/add-water-date/:username/:selectedPlant', (req, res) => {
+  console.log(req.params.selectedPlant, req.body.newWaterDate);
 
   Plant
-    .findOne({
+    .update({
       username: req.params.username,
-      nickname: req.params.selectedPlant
+      _id: req.params.selectedPlant
+    }, { $set: {
+      waterHistory: req.body.newWaterDate
+    }
+  })
+    .then(updatedPlant => {
+      res.status(200).json({
+        username: updatedPlant.username,
+        plantType: updatedPlant.plantType,
+        nickname: updatedPlant.nickname, 
+        waterNumber: updatedPlant.waterNumber,
+        waterFrequency: updatedPlant.waterFrequency,
+        waterHistory: updatedPlant.waterHistory,
+        notes: updatedPlant.notes
+      });
     })
-    .then(plant => {
-      plant.waterHistory.push({newWaterDate});
-    });
-});
+    .catch(err => res.status(500).json({ message: err}));
+  });
 
 //Delete an individual plant
 app.delete('/delete-plant/:username/:selectedPlant', (req, res) => {
@@ -262,7 +275,7 @@ app.delete('/delete-plant/:username/:selectedPlant', (req, res) => {
   Plant
     .findOneAndDelete({
       username: req.params.username,
-      nickname: req.params.selectedPlant
+      _id: req.params.selectedPlant
     })
     .then(() => {
       console.log(`${req.params.selectedPlant} was deleted`);
@@ -282,7 +295,7 @@ app.get('/edit-individual-plant/:username/:selectedPlant', (req, res) => {
   Plant
     .findOne({
       username: req.params.username,
-      nickname: req.params.selectedPlant
+      _id: req.params.selectedPlant
     })
     .then(plant => {
       console.log(plant);
@@ -300,13 +313,13 @@ app.put('/save-edit-individual-plant/:username/:selectedPlant', (req, res) => {
   Plant
     .update({
       username: req.params.username,
-      nickname: req.params.selectedPlant
+      _id: req.params.selectedPlant
     }, { $set: { 
         plantType: req.body.editedPlantType,
         nickname: req.body.editedNickname,
         waterNumber: req.body.editedWaterNumber,
         waterFrequency: req.body.editedWaterFrequency,
-        waterDate: req.body.editedWaterDate,
+        waterHistory: req.body.editedWaterDate,
         notes: req.body.editedNotes
       }
     })
@@ -317,7 +330,7 @@ app.put('/save-edit-individual-plant/:username/:selectedPlant', (req, res) => {
         nickname: updatedPlant.nickname, 
         waterNumber: updatedPlant.waterNumber,
         waterFrequency: updatedPlant.waterFrequency,
-        waterDate: updatedPlant.waterDate,
+        waterHistory: updatedPlant.waterHistory,
         notes: updatedPlant.notes
       });
     })

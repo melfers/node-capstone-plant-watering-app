@@ -9,6 +9,7 @@
     "chai-http": "^4.2.1",
     "express": "^4.16.4",
     "mocha": "^5.2.0",
+    "moment": "^2.23.0",
     "mongoose": "^5.4.2",
     "morgan": "^1.9.1"
   },

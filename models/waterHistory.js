@@ -11,4 +11,4 @@ const waterHistory = mongoose.Schema({
 
 const History = mongoose.model('History', waterHistory);
 
-module.exports = Plant;
+module.exports = History;

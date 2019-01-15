@@ -75,9 +75,9 @@
             <h2>Tell me about your plant:</h2>
             <form>
                 <label for="plant-type">Plant type:</label>
-                <input name="plant-type" type="text" id="newPlantType" value="Monstera Deliciosa" required>
+                <input name="plant-type" type="text" id="newPlantType" placeholder="Monstera Deliciosa" required>
                 <label for="nickname">Nickname:</label>
-                <input name="nickname" type="text" id="newPlantNickname" value="Bertha" required>
+                <input name="nickname" type="text" id="newPlantNickname" placeholder="Bertha" required>
                 <label for="watering-frequency">Watering frequency:</label>
                 <span>every  </span><input name="frequency-number" type="number" min="1" max="10" class="wtr-freq" id="newPlantWaterNumber">
                 <select name="frequency-days" class="wtr-freq" id="newPlantWaterFrequency">
@@ -88,7 +88,7 @@
                 <label for="last-water">When did you last water your plant?</label>
                 <input name="last-water-date" type="date" id="newPlantWaterHistory">
                 <label for="notes">Notes:</label>
-                <textarea name="notes" rows="5" cols="30" id="newPlantNotes" value="hi there"></textarea>
+                <textarea name="notes" rows="5" cols="30" id="newPlantNotes" placeholder="Loves sunlight and belly rubs"></textarea>
                 <div class="form-buttons">
                     <button type="button" class="form_button back-allPlants">Back</button>
                     <button type="submit" class="form_button" id="new-plant-save">Save</button>
@@ -97,12 +97,16 @@
         </section>
         <section id="individual-plant-page">
             <img src="icons/paddle-cactus-icon.png" id="individual-plant-icon">
-            <h2 id="individual-plant-nickname">Greta</h2>
-            <h4 id="individual-plant-type">Christmas Cactus</h4>
+            <h2 id="individual-plant-nickname"></h2>
             <div id="plant-info">
-                <p id="last-water-date">Last watered on: January 1st, 2019</p>
-                <p id="watering-frequency">Water every 2 months</p>
-                <p id="plant-notes">Notes: Loves sunlight and belly rubs.</p>
+                <h4 class="individual-plant-info">Plant type:</h4>
+                <p class="individual-plant-info" id="individual-plant-type"></p><br>
+                <h4 class="individual-plant-info">Last watered on:</h4>
+                <p class="individual-plant-info" id="last-water-date"></p><br>
+                <h4 class="individual-plant-info">Watering frequency:</h4>
+                <p class="individual-plant-info" id="watering-frequency"></p><br>
+                <h4 class="individual-plant-info">Notes:</h4>
+                <p class="individual-plant-info" id="plant-notes"></p>
             </div>
             <div id="individual-plant-buttons">
                 <button type="button" class="back-allPlants">Back</button>

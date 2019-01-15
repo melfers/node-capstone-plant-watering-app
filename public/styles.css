@@ -24,7 +24,7 @@ h1 {
 }
 
 h2 {
-    font-size: 30px;
+    font-size: 34px;
 }
 
 h3 {
@@ -51,7 +51,7 @@ label, input {
 
 form {
     margin: auto;
-    width: 25%;
+    width: 40%;
     text-align: left;
 }
 
@@ -86,7 +86,7 @@ input {
 #plant-info {
     text-align: left;
     display: block;
-    width: 70%;
+    width: 40%;
     margin: auto;
     min-height: 225px;
 }
@@ -151,7 +151,7 @@ h4 {
 }
 
 #input-water-date {
-    width: 90px;
+    width: 35%;
     margin: auto;
     margin-bottom: 30px;
 
@@ -182,3 +182,14 @@ p.plantButtonType {
     font-size: 14px;
     margin: 5px;
 }
+
+.individual-plant-info {
+    display: inline-block;
+    font-size: 20px;
+    margin: 5px;
+}
+
+#login-form {
+    width: 25%;
+}
+

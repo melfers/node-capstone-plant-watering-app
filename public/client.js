@@ -45,8 +45,7 @@ function populateAllPlantsPage(plantList) {
     let htmlContent = '';
     $.each(plantList, (i, item) => {
         htmlContent += '<li>';
-        htmlContent += '<form class="individualPlantForm">';
-        htmlContent += `<input type="hidden" class="individualPlantId" value="${item._id}" />`;
+        htmlContent += `<form class="individualPlantForm" id="${item._id}">`;
         htmlContent += '<button type="submit" class="plantButton">';
         htmlContent += '<img class="plantButtonIcon" src="icons/aloe-icon.png">';
         htmlContent += `<p class="plantButtonNickname">${item.nickname}</p>`;
@@ -98,9 +97,9 @@ function showNewPlantPage() {
 function populateIndividualPlantPage(plantData) {
     $('#individual-plant-nickname').html(plantData.nickname);
     $('#individual-plant-type').html(plantData.plantType);
-    $('#last-water-date').html(`Last watered on: ${plantData.waterHistory}`);
-    $('#watering-frequency').html(`Water every ${plantData.waterNumber} ${plantData.waterFrequency}`);
-    $('#plant-notes').html(`Notes: ${plantData.notes}`);
+    $('#last-water-date').html(plantData.waterHistory);
+    $('#watering-frequency').html(`  Water every ${plantData.waterNumber} ${plantData.waterFrequency}`);
+    $('#plant-notes').html(plantData.notes);
 }
 
 //Show individual plant page
@@ -120,6 +119,7 @@ function showIndividualPlantPage() {
     fetch(`/individual-plant/${username}/${selectedPlant}`)
     .then(response => response.json())
     .then(data => {
+        console.log(data);
         populateIndividualPlantPage(data);
     })
     .catch(error => console.error(error))
@@ -129,12 +129,12 @@ function showIndividualPlantPage() {
 
 //Populate edit plant page
 function populateEditIndividualPlantPage(plantData) {
-    $('#edit-individual-plant-type').attr('placeholder', `${plantData.plantType}`);
-    $('#edit-individual-plant-nickname').attr('placeholder', `${plantData.nickname}`);
-    $('#edit-water-number').attr('placeholder', `${plantData.waterNumber}`);
-    $('#edit-watering-frequency').attr('placeholder', `${plantData.waterFrequency}`);
-    $('#edit-last-water-date').attr('placeholder', `${plantData.waterHistory}`);
-    $('#edit-plant-notes').attr('placeholder', `${plantData.notes}`);
+    $('#edit-individual-plant-type').attr('value', `${plantData.plantType}`);
+    $('#edit-individual-plant-nickname').attr('value', `${plantData.nickname}`);
+    $('#edit-water-number').attr('value', `${plantData.waterNumber}`);
+    $('#edit-watering-frequency').attr('value', `${plantData.waterFrequency}`);
+    $('#edit-last-water-date').attr('value', `${plantData.waterHistory}`);
+    $('#edit-plant-notes').attr('value', `${plantData.notes}`);
 }
 
 //Show edit plant page
@@ -199,12 +199,14 @@ $('#new-water-save').click(event => {
     }
     else {
         let newWaterDateData = {
-            waterHistory: newWaterDate
+            username,
+            selectedPlant,
+            newWaterDate
         }
         console.log(newWaterDateData);
 
         return fetch(`/add-water-date/${username}/${selectedPlant}`, {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(newWaterDateData),
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -216,9 +218,7 @@ $('#new-water-save').click(event => {
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => {
-            showIndividualPlantPage(responseJson);
-        })
+        .then(responseJson => showIndividualPlantPage(responseJson))
         .catch(err => {
             console.log(err.message);
         });
@@ -234,20 +234,23 @@ $('#delete-plant').click(event => {
     const username = $('#logged-in-username').val();
     const selectedPlant = $('#selected-plant').val();
 
-    return fetch(`/delete-plant/${username}/${selectedPlant}`, {
-        method: 'DELETE',
-        headers: new Headers({
-            'Content-Type': 'application/json'
+    $.ajax({
+            method: 'DELETE',
+            dataType: 'json',
+            contentType: 'application/json',
+            url: `/delete-plant/${username}/${selectedPlant}`
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        showAllPlantsPage(username);
-        $('#selected-plant').val() = '';
-    })
-    .catch(err => {
-        console.log(err.message);
-    });
+        .done(function(result) {
+            console.log(`Plant deleted succesfully`);
+            showAllPlantsPage(username);
+            $('#selected-plant').val('');
+        })
+        .fail(function (jqXHR, error, errorThrown){
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+        })
+    
 });
 
 //Handle save edits button
@@ -406,8 +409,7 @@ $('.back-allPlants').click(event => {
 //Handle individual plant clicks
 $(document).on('click', '.individualPlantForm', event => {
     event.preventDefault();
-    debugger;
-    let selectedPlant = $(this).parent().find('.individualPlantId').val();
+    let selectedPlant = event.target.parentElement.parentElement.id;
     console.log(selectedPlant);
     $('#selected-plant').val(selectedPlant);
     showIndividualPlantPage();
