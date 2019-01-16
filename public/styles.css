@@ -110,7 +110,7 @@ ul {
     text-align: left;
     margin: auto;
     padding: 0;
-    width: 85%;
+    width: 70%;
 }
 
 li {
@@ -118,6 +118,7 @@ li {
     display: inline-block;
     text-align: center;
     padding: 10px;
+    max-width: 150px;
 }
 
 .all-plants-icon {
@@ -131,11 +132,11 @@ li {
 }
 
 .welcome {
-    margin: 60px;
+    margin-top: 60px;
 }
 
 #individual-plant-icon {
-    height: 60px;
+    height: 90px;
 }
 
 #individual-plant-header {
@@ -144,6 +145,12 @@ li {
 
 h4 {
     margin: 0px;
+}
+
+h5 {
+    margin: 0px;
+    font-size: 30px;
+    font-weight: normal;
 }
 
 #watering-can {
@@ -171,7 +178,8 @@ h4 {
 }
 
 form.individualPlantForm {
-    margin: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 p.plantButtonNickname {
@@ -191,5 +199,58 @@ p.plantButtonType {
 
 #login-form {
     width: 25%;
+}
+
+
+
+
+@media only screen and (max-width: 480px) {
+    #login-form {
+        width: 50%;
+    }
+
+    #display-all-plants {
+        width: 90%;
+    }
+
+    #plant-info {
+        width: 80%;
+    }
+
+    #input-water-date {
+        width: 150px;
+    }
+
+    .form-buttons {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+
+    #new-plant-water-form,
+    #edit-plant-form {
+        width: 80%;
+    }
+
+    input {
+        border: 1px gray;
+    }
+
+    li {
+        padding: 0px;
+        max-width: 150px;
+    }
+
+    ul {
+        text-align: center;
+    }
+
+    #add-plant-button {
+        padding-right: 0px;
+    }
+
+    .plantButton {
+        width: 125px;
+    }
 }
 

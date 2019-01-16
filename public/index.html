@@ -58,11 +58,11 @@
             </div>
         </section>
         <section id="all-plants-page">
-            <h2>My Plants</h2>
-            <p>Select a plant below to see more info</p>
+            <h2 id="all-plants-header">My Plants</h2>
+            <p id="plant-instructions">Select a plant below to see more info</p>
             <div id="plants-list">
+                <h5 id="no-plants-alert">You don't have any plants yet!<br>Click the plus sign below to add a new plant.</h4>
                 <ul id="display-all-plants">
-                    <li><img src="icons/aloe-icon.png" class="all-plants-icon">Greta</li>
                 </ul>
             </div>
             <div id="add-plant-container">
@@ -73,7 +73,7 @@
         </section>
         <section id="new-plant-page">
             <h2>Tell me about your plant:</h2>
-            <form>
+            <form id="new-plant-form">
                 <label for="plant-type">Plant type:</label>
                 <input name="plant-type" type="text" id="newPlantType" placeholder="Monstera Deliciosa" required>
                 <label for="nickname">Nickname:</label>
@@ -116,7 +116,7 @@
         </section>
         <section id="edit-plant-page">
             <h2>Edit</h2>
-            <form>
+            <form id="edit-plant-form">
                 <label for="plant-type">Plant type:</label>
                 <input name="plant-type" type="text" id="edit-individual-plant-type" placeholder="Christmas Cactus">
                 <label for="nickname">Nickname:</label>
@@ -131,8 +131,7 @@
                 <label for="last-water">When did you last water your plant?</label>
                 <input name="last-water-date" id="edit-last-water-date" type="date">
                 <label for="notes">Notes:</label>
-                <textarea name="notes" id="edit-plant-notes" rows="5" cols="30">Loves sunlight and belly rubs.
-                </textarea>
+                <textarea name="notes" id="edit-plant-notes" rows="5" cols="30"></textarea>
                 <div class="form-buttons">
                     <button type="button" class="form_button back-indivPlant">Back</button>
                     <button type="submit" class="form_button" id="edit-plant-save">Save</button>
@@ -143,7 +142,7 @@
         <section id="water-plant-page">
             <img src = "icons/watering-can.png" id="watering-can">
             <h2>When did you water<br>your plant?</h2>
-            <form>
+            <form id="new-plant-water-form">
                 <input name="last-water-date" type="date" id="input-water-date" required>
                 <div class="form-buttons">
                     <button type="button" class="form_button back-indivPlant">Back</button>

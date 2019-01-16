@@ -245,13 +245,14 @@ app.get('/individual-plant/:username/:selectedPlant', (req, res) => {
 //Add new water date for individual plant
 app.put('/add-water-date/:username/:selectedPlant', (req, res) => {
   console.log(req.params.selectedPlant, req.body.newWaterDate);
+  const formattedWaterDate = (moment(req.body.newWaterDate).format('MM/DD/YYYY'));
 
   Plant
     .update({
       username: req.params.username,
       _id: req.params.selectedPlant
     }, { $set: {
-      waterHistory: req.body.newWaterDate
+      waterHistory: formattedWaterDate
     }
   })
     .then(updatedPlant => {

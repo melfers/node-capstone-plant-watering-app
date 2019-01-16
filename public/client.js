@@ -67,13 +67,20 @@ function showAllPlantsPage() {
     $('#individual-plant-page').hide();
     $('#edit-plant-page').hide();
     $('#water-plant-page').hide();
+    $('#no-plants-alert').hide();
 
     const username = $('#logged-in-username').val();
     console.log(username);
     fetch(`/all-plants/${username}`)
     .then(response => response.json())
     .then(data => {
-        populateAllPlantsPage(data);
+        console.log(data.length);
+        if(data.length > 0) {
+            populateAllPlantsPage(data);
+        } else {
+            $('#plant-instructions').hide();
+            $('#no-plants-alert').show();
+        }
     })
     .catch(error => console.error(error))
 
@@ -134,7 +141,7 @@ function populateEditIndividualPlantPage(plantData) {
     $('#edit-water-number').attr('value', `${plantData.waterNumber}`);
     $('#edit-watering-frequency').attr('value', `${plantData.waterFrequency}`);
     $('#edit-last-water-date').attr('value', `${plantData.waterHistory}`);
-    $('#edit-plant-notes').attr('value', `${plantData.notes}`);
+    $('#edit-plant-notes').text(`${plantData.notes}`);
 }
 
 //Show edit plant page
@@ -233,24 +240,24 @@ $('#delete-plant').click(event => {
 
     const username = $('#logged-in-username').val();
     const selectedPlant = $('#selected-plant').val();
-
-    $.ajax({
-            method: 'DELETE',
-            dataType: 'json',
-            contentType: 'application/json',
-            url: `/delete-plant/${username}/${selectedPlant}`
-        })
-        .done(function(result) {
-            console.log(`Plant deleted succesfully`);
-            showAllPlantsPage(username);
-            $('#selected-plant').val('');
-        })
-        .fail(function (jqXHR, error, errorThrown){
-            console.log(jqXHR);
-            console.log(error);
-            console.log(errorThrown);
-        })
-    
+        if (confirm('Are you sure you want to delete this plant?') === true){    
+            $.ajax({
+                method: 'DELETE',
+                dataType: 'json',
+                contentType: 'application/json',
+                url: `/delete-plant/${username}/${selectedPlant}`
+            })
+            .done(function(result) {
+                console.log(`Plant deleted succesfully`);
+                showAllPlantsPage(username);
+                $('#selected-plant').val('');
+            })
+            .fail(function (jqXHR, error, errorThrown){
+                console.log(jqXHR);
+                console.log(error);
+                console.log(errorThrown);
+            });
+     }
 });
 
 //Handle save edits button
