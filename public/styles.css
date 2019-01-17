@@ -201,7 +201,24 @@ p.plantButtonType {
     width: 25%;
 }
 
+.select-plant-icon {
+    height: 80px; 
+}
 
+#plant-icon-container {
+    width: 100%;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#plant-icon-container label,
+#edit-plant-icon-container label {
+    display: inline-block;
+}
+
+#new-plant-form {
+    width: 70%;
+}
 
 
 @media only screen and (max-width: 480px) {
@@ -252,5 +269,11 @@ p.plantButtonType {
     .plantButton {
         width: 125px;
     }
+
+    .select-plant-icon {
+        height: 60px;
+    }
 }
+
+
 

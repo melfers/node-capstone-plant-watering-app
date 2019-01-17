@@ -165,6 +165,7 @@ app.get('/verifyNickname/:username/:inputNickname', (req, res) => {
 //Create new plant
 app.post('/users/plants/create', (req, res) => {
   let username = req.body.username;
+  let icon = req.body.icon;
   let plantType = req.body.plantType;
   let nickname = req.body.nickname;
   let waterNumber = req.body.waterNumber;
@@ -175,6 +176,7 @@ app.post('/users/plants/create', (req, res) => {
   nickname = nickname.trim();
   console.log(
     req.body.username,
+    req.body.icon,
     req.body.plantType, 
     req.body.nickname, 
     req.body.waterNumber, 
@@ -186,6 +188,7 @@ app.post('/users/plants/create', (req, res) => {
   Plant
     .create({
       username,
+      icon,
       plantType,
       nickname,
       waterNumber,
@@ -316,6 +319,7 @@ app.put('/save-edit-individual-plant/:username/:selectedPlant', (req, res) => {
       username: req.params.username,
       _id: req.params.selectedPlant
     }, { $set: { 
+        icon: req.body.editedIcon,
         plantType: req.body.editedPlantType,
         nickname: req.body.editedNickname,
         waterNumber: req.body.editedWaterNumber,
@@ -327,6 +331,7 @@ app.put('/save-edit-individual-plant/:username/:selectedPlant', (req, res) => {
     .then(updatedPlant => {
       res.status(200).json({
         username: updatedPlant.username,
+        icon: updatedPlant.icon,
         plantType: updatedPlant.plantType,
         nickname: updatedPlant.nickname, 
         waterNumber: updatedPlant.waterNumber,

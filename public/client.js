@@ -47,7 +47,7 @@ function populateAllPlantsPage(plantList) {
         htmlContent += '<li>';
         htmlContent += `<form class="individualPlantForm" id="${item._id}">`;
         htmlContent += '<button type="submit" class="plantButton">';
-        htmlContent += '<img class="plantButtonIcon" src="icons/aloe-icon.png">';
+        htmlContent += `<img class="plantButtonIcon" src="${item.icon}">`;
         htmlContent += `<p class="plantButtonNickname">${item.nickname}</p>`;
         htmlContent += `<p class="plantButtonType">${item.plantType}</p>`;
         htmlContent += '</button>';
@@ -102,6 +102,7 @@ function showNewPlantPage() {
 
 //Populate individual plant page
 function populateIndividualPlantPage(plantData) {
+    $('#individual-plant-icon').attr('src', plantData.icon);
     $('#individual-plant-nickname').html(plantData.nickname);
     $('#individual-plant-type').html(plantData.plantType);
     $('#last-water-date').html(plantData.waterHistory);
@@ -136,6 +137,7 @@ function showIndividualPlantPage() {
 
 //Populate edit plant page
 function populateEditIndividualPlantPage(plantData) {
+    console.log(`${plantData.icon}`);
     $('#edit-individual-plant-type').attr('value', `${plantData.plantType}`);
     $('#edit-individual-plant-nickname').attr('value', `${plantData.nickname}`);
     $('#edit-water-number').attr('value', `${plantData.waterNumber}`);
@@ -264,6 +266,7 @@ $('#delete-plant').click(event => {
 $('#edit-plant-save').click(event => {
     event.preventDefault();
     const username = $('#logged-in-username').val();
+    const editedIcon = $('input[name=plant-icon]:checked').attr('class');
     const selectedPlant = $('#selected-plant').val(); 
     let editedPlantType = $('#edit-individual-plant-type').val();
     let editedNickname = $('#edit-individual-plant-nickname').val();
@@ -281,6 +284,7 @@ $('#edit-plant-save').click(event => {
     else {
         const editedPlantData = {
             username,
+            editedIcon,
             selectedPlant,
             editedPlantType,
             editedNickname,
@@ -359,13 +363,14 @@ $(document).on('blur', '#newPlantNickname', event => {
 $('#new-plant-save').click(event => {
     event.preventDefault();
     const username = $('#logged-in-username').val();
+    const icon = $('input[name=plant-icon]:checked').attr('id');
     const plantType = $('#newPlantType').val();
     const nickname = $('#newPlantNickname').val();
     const waterNumber = $('#newPlantWaterNumber').val();
     const waterFrequency = $('#newPlantWaterFrequency').val();
     const waterHistory = $('#newPlantWaterHistory').val();
     const notes = $('#newPlantNotes').val();
-    console.log(plantType, nickname, waterNumber, waterFrequency, waterHistory, notes);
+    console.log(icon, plantType, nickname, waterNumber, waterFrequency, waterHistory, notes);
 
     if(plantType == "") {
         alert('Sorry, you have to enter a plant type')
@@ -375,6 +380,7 @@ $('#new-plant-save').click(event => {
     else {
         const newPlantData = {
             username,
+            icon,
             plantType,
             nickname,
             waterNumber,
