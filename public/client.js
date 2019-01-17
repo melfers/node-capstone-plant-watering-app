@@ -44,7 +44,7 @@ function showSignupPage() {
 function populateAllPlantsPage(plantList) {
     let htmlContent = '';
     $.each(plantList, (i, item) => {
-        htmlContent += '<li>';
+        htmlContent += '<li class="all-plants-li">';
         htmlContent += `<form class="individualPlantForm" id="${item._id}">`;
         htmlContent += '<button type="submit" class="plantButton">';
         htmlContent += `<img class="plantButtonIcon" src="${item.icon}">`;
@@ -121,7 +121,7 @@ function showWaterHistory(plant_id) {
         let htmlOutput = '';
         for(let i=0; i<data.length; i++) {
             let eachDate = moment(data[i].waterDate).format('MMMM Do YYYY');
-            htmlOutput += `<li>${eachDate}</li>`;
+            htmlOutput += `<li class="wateringDate">${eachDate}</li>`;
         }
         $('.' + plant_id).html(htmlOutput);
         //populateIndividualPlantPage(data);

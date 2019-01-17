@@ -119,18 +119,23 @@ ul {
     width: 70%;
 }
 
-.water-history li {
+li.wateringDate {
     display: block;
     width: 200px;
     margin: 0px;
+    font-size: 20px;
 }
 
-li {
+.all-plants-li {
     list-style-type: none;
     display: inline-block;
     text-align: center;
     padding: 10px;
     max-width: 150px;
+}
+
+span {
+    font-size: 14px;
 }
 
 .all-plants-icon {
@@ -170,7 +175,7 @@ h5 {
 }
 
 #input-water-date {
-    width: 35%;
+    width: 50%;
     margin: auto;
     margin-bottom: 30px;
 
@@ -210,7 +215,7 @@ p.plantButtonType {
 }
 
 #login-form {
-    width: 25%;
+    width: 30%;
 }
 
 .select-plant-icon {
@@ -228,8 +233,9 @@ p.plantButtonType {
     display: inline-block;
 }
 
-#new-plant-form {
-    width: 70%;
+#new-plant-form,
+#edit-plant-form {
+    width: 50%;
 }
 
 button {
@@ -242,6 +248,11 @@ input {
 
 .water-history ul {
     width: 90%;
+}
+
+#select-icon-label {
+    display: block;
+    margin-bottom: 8px;
 }
 
 
@@ -259,7 +270,7 @@ input {
     }
 
     #input-water-date {
-        width: 150px;
+        width: 250px;
     }
 
     .form-buttons {

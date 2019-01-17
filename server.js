@@ -239,6 +239,7 @@ app.get('/waterHistory/:plant_id', (req, res) => {
   console.log(req.params.plant_id);
   History
     .find({plant_id: req.params.plant_id})
+    .sort({waterDate: -1})
     .then(history => {
         console.log(history);
         res.json(history);
@@ -365,7 +366,6 @@ app.put('/save-edit-individual-plant/:username/:selectedPlant', (req, res) => {
         nickname: req.body.editedNickname,
         waterNumber: req.body.editedWaterNumber,
         waterFrequency: req.body.editedWaterFrequency,
-        waterHistory: req.body.editedWaterDate,
         notes: req.body.editedNotes
       }
     })
@@ -377,13 +377,10 @@ app.put('/save-edit-individual-plant/:username/:selectedPlant', (req, res) => {
         nickname: updatedPlant.nickname, 
         waterNumber: updatedPlant.waterNumber,
         waterFrequency: updatedPlant.waterFrequency,
-        waterHistory: updatedPlant.waterHistory,
         notes: updatedPlant.notes
       });
     })
     .catch(err => res.status(500).json({ message: err}));
 })
-
-
 
 module.exports = { app, runServer, closeServer };
