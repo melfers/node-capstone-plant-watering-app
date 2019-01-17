@@ -383,4 +383,21 @@ app.put('/save-edit-individual-plant/:username/:selectedPlant', (req, res) => {
     .catch(err => res.status(500).json({ message: err}));
 })
 
+//Check signup info to ensure unique username
+app.get('/users/verifySignup/:username', (req, res) => {
+  console.log(req.params.username);
+  User
+    .find({
+      username: req.params.username
+    })
+    .then(result => {
+        console.log(result.length);
+        res.json({result});
+      })
+    .catch(err => {
+      console.err(err);
+      res.status(500).json({ error: 'Something went wrong'});
+    });
+})
+
 module.exports = { app, runServer, closeServer };

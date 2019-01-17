@@ -516,6 +516,25 @@ $('#signup-save').click(event => {
     }
 });
 
+//Ensure unique signup info
+function verifySignupInfo(username) {
+    fetch(`/users/verifySignup/${username}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.length);
+        if(data.result.length > 0) {
+            alert('Sorry, that username is already being used. Please try a new one!');
+            $('#signupUsernameInput').val('');
+        }
+    })
+    .catch(error => console.error(error))
+}
+
+$(document).on('blur', '#signupUsernameInput', event => {
+    event.preventDefault();
+    let inputUsername = $('#signupUsernameInput').val();
+    verifySignupInfo(inputUsername);
+})
 
 //Handle login 
 $('#login-save').click(event => {
