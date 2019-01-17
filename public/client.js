@@ -106,7 +106,6 @@ function populateIndividualPlantPage(plantData) {
     $('#individual-plant-icon').attr('src', plantData.icon);
     $('#individual-plant-nickname').html(plantData.nickname);
     $('#individual-plant-type').html(plantData.plantType);
-    $('#last-water-date').html(plantData.waterHistory);
     $('#watering-frequency').html(`  Water every ${plantData.waterNumber} ${plantData.waterFrequency}`);
     $('#plant-notes').html(plantData.notes);
     $('.water-history ul').addClass(plantData._id);
@@ -114,14 +113,6 @@ function populateIndividualPlantPage(plantData) {
 
 //Show water history for individual plant 
 function showWaterHistory(plant_id) {
-   /* $('#welcome-container').hide();
-    $('#signup-form-container').hide();
-    $('#login-form-container').hide();
-    $('#all-plants-page').hide();
-    $('#new-plant-page').hide();
-    $('#individual-plant-page').show();
-    $('#edit-plant-page').hide();
-    $('#water-plant-page').hide();*/
 
     fetch(`/waterHistory/${plant_id}`)
     .then(response => response.json())
@@ -129,7 +120,8 @@ function showWaterHistory(plant_id) {
         console.log(data);
         let htmlOutput = '';
         for(let i=0; i<data.length; i++) {
-            htmlOutput += `<li>${data[i].waterDate}</li>`;
+            let eachDate = moment(data[i].waterDate).format('MMMM Do YYYY');
+            htmlOutput += `<li>${eachDate}</li>`;
         }
         $('.' + plant_id).html(htmlOutput);
         //populateIndividualPlantPage(data);
@@ -167,12 +159,12 @@ function showIndividualPlantPage() {
 
 //Populate edit plant page
 function populateEditIndividualPlantPage(plantData) {
-    console.log(`${plantData.icon}`);
+    let waterDate = moment(plantData.waterDate).format('YYYY-MM-DD');
     $('#edit-individual-plant-type').attr('value', `${plantData.plantType}`);
     $('#edit-individual-plant-nickname').attr('value', `${plantData.nickname}`);
     $('#edit-water-number').attr('value', `${plantData.waterNumber}`);
     $('#edit-watering-frequency').attr('value', `${plantData.waterFrequency}`);
-    $('#edit-last-water-date').attr('value', `${plantData.waterHistory}`);
+    $('#edit-last-water-date').attr('value', waterDate);
     $('#edit-plant-notes').text(`${plantData.notes}`);
 }
 

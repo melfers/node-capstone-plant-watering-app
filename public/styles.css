@@ -47,12 +47,12 @@ main {
 label, input {
     display: block;
     margin: 5px;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 textarea, 
 label {
-    font-size: 14px;
+    font-size: 20px;
 }
 
 form {
@@ -117,6 +117,12 @@ ul {
     margin: auto;
     padding: 0;
     width: 70%;
+}
+
+.water-history li {
+    display: block;
+    width: 200px;
+    margin: 0px;
 }
 
 li {
@@ -228,6 +234,14 @@ p.plantButtonType {
 
 button {
     border-radius: 3px;
+}
+
+input {
+    /*border: 2px gray;*/
+}
+
+.water-history ul {
+    width: 90%;
 }
 
 
