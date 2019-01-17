@@ -47,6 +47,12 @@ main {
 label, input {
     display: block;
     margin: 5px;
+    font-size: 14px;
+}
+
+textarea, 
+label {
+    font-size: 14px;
 }
 
 form {
@@ -101,7 +107,7 @@ input {
 #add-plant-button {
     border: none;
     background: none;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
 }
@@ -218,6 +224,10 @@ p.plantButtonType {
 
 #new-plant-form {
     width: 70%;
+}
+
+button {
+    border-radius: 3px;
 }
 
 

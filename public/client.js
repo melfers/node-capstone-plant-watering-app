@@ -102,12 +102,41 @@ function showNewPlantPage() {
 
 //Populate individual plant page
 function populateIndividualPlantPage(plantData) {
+    console.log(plantData);
     $('#individual-plant-icon').attr('src', plantData.icon);
     $('#individual-plant-nickname').html(plantData.nickname);
     $('#individual-plant-type').html(plantData.plantType);
     $('#last-water-date').html(plantData.waterHistory);
     $('#watering-frequency').html(`  Water every ${plantData.waterNumber} ${plantData.waterFrequency}`);
     $('#plant-notes').html(plantData.notes);
+    $('.water-history ul').addClass(plantData._id);
+}
+
+//Show water history for individual plant 
+function showWaterHistory(plant_id) {
+   /* $('#welcome-container').hide();
+    $('#signup-form-container').hide();
+    $('#login-form-container').hide();
+    $('#all-plants-page').hide();
+    $('#new-plant-page').hide();
+    $('#individual-plant-page').show();
+    $('#edit-plant-page').hide();
+    $('#water-plant-page').hide();*/
+
+    fetch(`/waterHistory/${plant_id}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        let htmlOutput = '';
+        for(let i=0; i<data.length; i++) {
+            htmlOutput += `<li>${data[i].waterDate}</li>`;
+        }
+        $('.' + plant_id).html(htmlOutput);
+        //populateIndividualPlantPage(data);
+    })
+    .catch(error => console.error(error))
+
+    console.log('showIndividualPlantPage ran');
 }
 
 //Show individual plant page
@@ -129,6 +158,7 @@ function showIndividualPlantPage() {
     .then(data => {
         console.log(data);
         populateIndividualPlantPage(data);
+        showWaterHistory(selectedPlant);
     })
     .catch(error => console.error(error))
 
@@ -198,24 +228,22 @@ $('#header-logo').click(event => {
 $('#new-water-save').click(event => {
     event.preventDefault();
 
-    const username = $('#logged-in-username').val();
-    const selectedPlant = $('#selected-plant').val();
-    const newWaterDate = $('#input-water-date').val();
-    console.log(newWaterDate, selectedPlant);
+    const plant_id = $('#selected-plant').val();
+    const waterDate = $('#input-water-date').val();
+    console.log(plant_id, waterDate);
 
-    if(newWaterDate == "") {
+    if(waterDate == "") {
         alert('Please enter a date');
     }
     else {
         let newWaterDateData = {
-            username,
-            selectedPlant,
-            newWaterDate
+            plant_id,
+            waterDate
         }
         console.log(newWaterDateData);
 
-        return fetch(`/add-water-date/${username}/${selectedPlant}`, {
-            method: 'PUT',
+        return fetch(`/users/plants/history`, {
+            method: 'POST',
             body: JSON.stringify(newWaterDateData),
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -227,7 +255,7 @@ $('#new-water-save').click(event => {
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => showIndividualPlantPage(responseJson))
+        .then(responseJson => showIndividualPlantPage())
         .catch(err => {
             console.log(err.message);
         });
@@ -407,7 +435,8 @@ $('#new-plant-save').click(event => {
           .catch(err => {
           /*$('#js-error-message').text(`Something went wrong: ${err.message}`);*/
             console.log(err.message);
-          });
+          })
+        .then($('#new-plant-form').trigger('reset'));
     }
 });
 

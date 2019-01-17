@@ -1,6 +1,6 @@
 const User = require('./models/users');
 const Plant = require('./models/plants');
-const History = require('./models/waterHistory');
+const History = require('./models/history');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -205,6 +205,47 @@ app.post('/users/plants/create', (req, res) => {
         console.log(`Added a ${plantType} named ${nickname} to ${username}'s account`);
         return res.json(item);
       }
+    });
+});
+
+//Create new water history
+app.post('/users/plants/history', (req, res) => {
+  let plant_id = req.body.plant_id;
+  let waterDate = req.body.waterDate;
+
+  console.log(
+    req.body.plant_id,
+    req.body.waterDate
+    );
+
+  History
+    .create({
+      plant_id,
+      waterDate
+    }, (err, item) => {
+      if(err) {
+        return res.status(500).json({
+          message: 'Internal server error'
+        });
+      }
+      if (item) {
+        return res.json(item);
+      }
+    });
+});
+
+//Get water history for individual plant
+app.get('/waterHistory/:plant_id', (req, res) => {
+  console.log(req.params.plant_id);
+  History
+    .find({plant_id: req.params.plant_id})
+    .then(history => {
+        console.log(history);
+        res.json(history);
+      })
+    .catch(err => {
+      console.err(err);
+      res.status(500).json({ error: 'Something went wrong'});
     });
 });
 
