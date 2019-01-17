@@ -52,7 +52,6 @@ function generateIndividualPlant() {
     nickname: faker.name.firstName(),
     waterNumber: waterNumber,
     waterFrequency: generateFrequencyVal(),
-    waterHistory: faker.date.past(),
     notes: faker.lorem.sentence()
   }
 }
@@ -125,11 +124,36 @@ describe('Create new user', function() {
       });
   });
 
-  //Test user login
-  it('should log in as a user', function() {
+  afterEach(function() {
+    return tearDownDb();
+  });
+
+  after(function() {
+    return closeServer();
+  });
+});
+
+
+
+//-------------------- Test Plant Endpoints --------------------
+
+describe('Create new user', function() {
+
+  before(function() {
+    return runServer(TEST_DATABASE_URL)
+    .then(console.log('Running server'))
+    .catch(err => console.log(err));
+  });
+
+  beforeEach(function() {
+    return seedUserData();
+  });
+
+  //Test create new user
+  it('should create a new user', function() {
     const newUser = generateUser();
     return chai.request(app)
-      .post('/users/login')
+      .post('/users/signup')
       .send(newUser)
       .then(function(res) {
         expect(res).to.have.status(200);
@@ -145,5 +169,3 @@ describe('Create new user', function() {
     return closeServer();
   });
 });
-
-

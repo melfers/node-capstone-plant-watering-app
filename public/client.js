@@ -388,7 +388,6 @@ $('#new-plant-save').click(event => {
     const nickname = $('#newPlantNickname').val();
     const waterNumber = $('#newPlantWaterNumber').val();
     const waterFrequency = $('#newPlantWaterFrequency').val();
-    const waterHistory = $('#newPlantWaterHistory').val();
     const notes = $('#newPlantNotes').val();
     console.log(icon, plantType, nickname, waterNumber, waterFrequency, waterHistory, notes);
 
@@ -405,7 +404,6 @@ $('#new-plant-save').click(event => {
             nickname,
             waterNumber,
             waterFrequency,
-            waterHistory,
             notes
         }
         console.log(newPlantData);
