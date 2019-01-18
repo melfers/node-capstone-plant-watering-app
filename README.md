@@ -34,3 +34,30 @@ As a user, I want to be able to view an individual plant so I can see its wateri
 As a user, I want to be able to edit an individual plant so that I can add watering dates or notes.
 
 ![Edit Plant Page](wireframes/edit_plant_page.jpg)
+
+## Designs
+
+**Landing Page** 
+
+![Landing Page](screenshots/landing_page.png)
+
+**Signup Page** 
+
+![Signup Page](screenshots/signup_page.png)
+
+**All Plants Page** 
+
+![All Plants Page](screenshots/all_plants_page.png)
+
+**Add New Plant Page**
+
+![New Plant Page Wireframe](screenshots/new_plant_page.png)
+
+**Individual Plant Page**
+
+![Individual Plant Page](screenshots/individual_plant_page.png)
+
+**Edit Plant Page**
+
+![Edit Plant Page](screenshots/edit_plant_page.png)
+
