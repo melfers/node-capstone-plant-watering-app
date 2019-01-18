@@ -23,6 +23,7 @@
         <section id="landing-page">
             <div id="welcome-container">
                 <h1>Welcome to<br>Green Thumb!</h1>
+                <p id="intro-text">Green Thumb is an app that helps you track when you water your plants,<br> so you can turn your black thumb into a green thumb!</p>
                 <button id="login-button">Log in</button>
                 <button id="signup-button">Sign up</button>
             </div>
@@ -30,9 +31,9 @@
                 <h2 class="welcome">Please enter your login info:</h2>
                 <form id="login-form">
                     <label for="username">username:</label>
-                    <input name="username" type="text" id="loginUsernameInput" required>
+                    <input name="username" type="text" id="loginUsernameInput" value="demoUser" required>
                     <label for="password">password:</label>
-                    <input name="password" type="password" id="loginUserPwInput" required>
+                    <input name="password" type="password" id="loginUserPwInput" value="demoPass" required>
                     <div class="form-buttons">
                         <button type="button" class="form_button landing-back">Back</button>
                         <button type="submit" class="form_button" id="login-save">Save</button>
@@ -121,6 +122,7 @@
                 <h4 class="individual-plant-info">Watering frequency:</h4>
                 <p class="individual-plant-info" id="watering-frequency"></p><br>
                 <h4 class="individual-plant-info">Watering history:</h4>
+                <p id="no-dates-alert">No watering dates yet.</p>
                 <div class="water-history">
                     <ul>
                     </ul>
@@ -141,19 +143,19 @@
                 <div id="edit-plant-icon-container">   
                     <label for="edit-plant-icon-selector">
                         <img src="icons/aloe-icon.png" class="select-plant-icon">
-                        <input type="radio" name="plant-icon" class="icons/aloe-icon.png" checked="checked">
+                        <input type="radio" name="plant-icon" checked="checked">
                     </label>
                     <label for="edit-plant-icon-selector">
                         <img src="icons/echeveria-icon.png" class="select-plant-icon">
-                        <input type="radio" name="plant-icon"  class="icons/echeveria-icon.png">
+                        <input type="radio" name="plant-icon">
                     </label>
                     <label for="edit-plant-icon-selector">
                         <img src="icons/paddle-cactus-icon.png" class="select-plant-icon">
-                        <input type="radio" name="plant-icon" class="icons/paddle-cactus-icon.png">
+                        <input type="radio" name="plant-icon">
                     </label>
                     <label for="edit-plant-icon-selector">
                         <img src="icons/ficus-icon.png" class="select-plant-icon">
-                        <input type="radio" name="plant-icon" class="icons/ficus-icon.png">
+                        <input type="radio" name="plant-icon">
                     </label>
                 </div>     
                 <label for="plant-type">Plant type:</label>

@@ -20,7 +20,11 @@
 
 h1 {
     font-size: 40px;
-    margin: 60px;
+    margin: 40px;
+}
+
+#intro-text {
+    font-size: 14;
 }
 
 h2 {
@@ -253,6 +257,10 @@ input {
 #select-icon-label {
     display: block;
     margin-bottom: 8px;
+}
+
+#no-date-alert {
+    padding-left: 10px;
 }
 
 
