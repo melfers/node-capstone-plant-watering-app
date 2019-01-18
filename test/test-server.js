@@ -137,7 +137,7 @@ describe('Create new user', function() {
 
 //-------------------- Test Plant Endpoints --------------------
 
-describe('Create new user', function() {
+describe('Plant API Resource', function() {
 
   before(function() {
     return runServer(TEST_DATABASE_URL)
@@ -146,18 +146,66 @@ describe('Create new user', function() {
   });
 
   beforeEach(function() {
-    return seedUserData();
+    return seedIndividualPlantData();
   });
 
-  //Test create new user
-  it('should create a new user', function() {
-    const newUser = generateUser();
+  //Test create new plant
+  it('should create a new plant', function() {
+    const newPlant = generateIndividualPlant();
     return chai.request(app)
-      .post('/users/signup')
-      .send(newUser)
+      .post('/users/plants/create')
+      .send(newPlant)
       .then(function(res) {
-        expect(res).to.have.status(200);
         expect(res).to.be.json;
+      });
+  });
+
+  //Test show all plants for a user
+  it('should show all plants for a specific user', function() {
+    return chai.request(app)
+      .get('/all-plants/' + username)
+      .then(function(res) {
+        expect(res).to.be.json;
+        expect(res).to.be.a('object');
+      });
+  });
+
+  //Test update individual plant
+  it('should update edited information for a plant', function() {
+    const oldPlant = generateIndividualPlant();
+    const newPlant = generateIndividualPlant();
+
+    return Plant
+      .findOne()
+      .then(function(plant) {
+        oldPlant._id = plant._id;
+
+        return chai.request(app)
+          .put(`/save-edit-individual-plant/${oldPlant.username}/${oldPlant._id}`)
+          .send(newPlant);
+      })
+      .then(function(res) {
+        expect(res).to.be.json;
+        expect(res).to.have.status(200)
+      })
+    });
+
+  //Test delete individual plant
+  it('should delete a plant', function() {
+    let plant;
+
+    return Plant 
+      .findOne()
+      .then(function(_plant) {
+        plant = _plant;
+        return chai.request(app).delete(`/delete-plant/${plant.username}/${plant._id}`);
+      })
+      .then(function(res) {
+        expect(res).to.have.status(204);
+        return Plant.findById(plant.id);
+      })
+      .then(function(_plant) {
+        expect(_plant).to.be.null;
       });
   });
 
