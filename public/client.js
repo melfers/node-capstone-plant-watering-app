@@ -80,6 +80,7 @@ function showAllPlantsPage() {
         } else {
             $('#plant-instructions').hide();
             $('#no-plants-alert').show();
+            $('#display-all-plants').empty();
         }
     })
     .catch(error => console.error(error))
@@ -271,8 +272,8 @@ $('#delete-plant').click(event => {
             })
             .done(function(result) {
                 console.log(`Plant deleted succesfully`);
-                showAllPlantsPage(username);
                 $('#selected-plant').val('');
+                showAllPlantsPage(username);
             })
             .fail(function (jqXHR, error, errorThrown){
                 console.log(jqXHR);
