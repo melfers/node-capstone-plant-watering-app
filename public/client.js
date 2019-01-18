@@ -120,7 +120,7 @@ function showWaterHistory(plant_id) {
         console.log(data);
         let htmlOutput = '';
         for(let i=0; i<data.length; i++) {
-            let eachDate = moment(data[i].waterDate).format('MMMM Do YYYY');
+            let eachDate = moment.parseZone(data[i].waterDate).format('MMMM Do YYYY');
             htmlOutput += `<li class="wateringDate">${eachDate}</li>`;
         }
         $('.' + plant_id).html(htmlOutput);
