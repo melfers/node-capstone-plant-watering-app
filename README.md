@@ -59,5 +59,29 @@ As a user, I want to be able to edit an individual plant so that I can add water
 
 **Edit Plant Page**
 
-![Edit Plant Page](screenshots/edit_plant_page.png)
+![Edit Plant Page](screenshots/edit_plants_page.png)
+
+## Technical
+
+Green Thumb was built with: 
+
+**Front End**
+
+* HTML5
+* CSS3
+* JavaScript 
+* jQuery 
+
+**Back End**
+
+* Node.js 
+* Express.js
+* MongoDB
+* Mongoose
+* mLab database
+* Mocha and Chai for testing
+
+**Responsive**
+
+This app is built to be responsive to smaller screen sizes using a media screen width breakpoint of 480px for smaller screen sizes. 
 
