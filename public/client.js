@@ -389,7 +389,7 @@ $('#new-plant-save').click(event => {
     const waterNumber = $('#newPlantWaterNumber').val();
     const waterFrequency = $('#newPlantWaterFrequency').val();
     const notes = $('#newPlantNotes').val();
-    console.log(icon, plantType, nickname, waterNumber, waterFrequency, waterHistory, notes);
+    console.log(icon, plantType, nickname, waterNumber, waterFrequency, notes);
 
     if(plantType == "") {
         alert('Sorry, you have to enter a plant type')
@@ -573,7 +573,7 @@ $('#login-save').click(event => {
             showAllPlantsPage(responseJson);
           })
           .catch(err => {
-          /*$('#js-error-message').text(`Something went wrong: ${err.message}`);*/
+            alert('Sorry, there was an error logging in. Please try again with a valid username and password.');
             console.log(err.message);
           });
     }
